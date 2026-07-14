@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 (原版行程)</title>
+    <title>大阪親子之旅 2026 (原版+備註)</title>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
@@ -30,9 +30,19 @@
         .q-btn { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: 8px 2px; border-radius: 8px; font-size: 10px; font-weight: bold; text-align: center; }
         
         .expense-table { width: 100%; font-size: 12px; border-collapse: collapse; }
+        .expense-table th { padding-bottom: 8px; border-bottom: 2px solid #eee; text-align: left; }
+        .expense-table td { padding: 8px 0; border-bottom: 1px solid #eee; }
         .edit-input { width: 100%; border: 1px solid transparent; padding: 5px; font-size: 13px; border-radius: 4px; box-sizing: border-box; }
         .edit-input:focus { border-color: var(--secondary); background: #f0f7ff; outline: none; }
         
+        /* 備註區專用樣式 */
+        .note-category { background: #f9f9f9; padding: 12px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--secondary); }
+        .note-category h5 { margin: 0 0 10px 0; font-size: 14px; color: #333; }
+        .note-list { list-style: none; padding: 0; margin: 0; font-size: 12px; color: #555; }
+        .note-list li { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #ddd; }
+        .note-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .note-addr { font-size: 11px; color: #888; display: block; margin-top: 3px; }
+
         .charts-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
         .chart-box { text-align: center; }
         .pie-chart { width: 140px; height: 140px; transform: rotate(-90deg); border-radius: 50%; margin: 10px auto; }
@@ -46,17 +56,19 @@
 
 <header>
     <h3 style="margin:0">☁️ 大阪 10 天親子 App</h3>
-    <small>原版文檔直出 (不含 AI 修改)</small>
+    <small>原版行程 + 備註資料庫</small>
 </header>
 
 <div class="nav-tabs">
     <a href="#block-1">D1</a> <a href="#block-2">D2</a> <a href="#block-3">D3</a>
     <a href="#block-4">D4</a> <a href="#block-5">D5</a> <a href="#block-6">D6</a>
-    <a href="#block-7">D7</a> <a href="#block-8">D8</a> <a href="#block-9">D9</a>
-    <a href="#block-10">D10</a> <a href="#budget-app">📊 帳本</a>
+    <a href="#block-7" style="color:red; font-weight:bold;">D7(日)</a> 
+    <a href="#block-8">D8</a> <a href="#block-9">D9</a> <a href="#block-10">D10</a> 
+    <a href="#notes-app">📝 備註</a> <a href="#budget-app">📊 帳本</a>
 </div>
 
 <div id="itinerary-container">
+    <!-- Day 1 -->
     <div class="day-block" id="block-1">
         <div class="day-header"><h3>📅 20/7 (一) 抵達日：梅田</h3><div class="order-btns"><button onclick="moveUp('block-1')">↑</button><button onclick="moveDown('block-1')">↓</button></div></div>
         <div class="card-content">
@@ -79,6 +91,7 @@
         </div>
     </div>
 
+    <!-- Day 2 -->
     <div class="day-block" id="block-2">
         <div class="day-header" style="background:var(--accent)"><h3>📅 21/7 (二) 京都四景</h3><div class="order-btns"><button onclick="moveUp('block-2')">↑</button><button onclick="moveDown('block-2')">↓</button></div></div>
         <div class="card-content">
@@ -101,6 +114,7 @@
         </div>
     </div>
 
+    <!-- Day 3 -->
     <div class="day-block" id="block-3">
         <div class="day-header"><h3>📅 22/7 (三) 神戶/難波</h3><div class="order-btns"><button onclick="moveUp('block-3')">↑</button><button onclick="moveDown('block-3')">↓</button></div></div>
         <div class="card-content">
@@ -125,6 +139,7 @@
         </div>
     </div>
 
+    <!-- Day 4 -->
     <div class="day-block" id="block-4">
         <div class="day-header"><h3>📅 23/7 (四) 奈良親子日</h3><div class="order-btns"><button onclick="moveUp('block-4')">↑</button><button onclick="moveDown('block-4')">↓</button></div></div>
         <div class="card-content">
@@ -141,6 +156,7 @@
         </div>
     </div>
 
+    <!-- Day 5 -->
     <div class="day-block" id="block-5">
         <div class="day-header"><h3>📅 24/7 (五) 黑門市場→海遊館</h3><div class="order-btns"><button onclick="moveUp('block-5')">↑</button><button onclick="moveDown('block-5')">↓</button></div></div>
         <div class="card-content">
@@ -163,6 +179,7 @@
         </div>
     </div>
 
+    <!-- Day 6 -->
     <div class="day-block" id="block-6">
         <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
         <div class="card-content">
@@ -183,8 +200,9 @@
         </div>
     </div>
 
-    <div class="day-block" id="block-7">
-        <div class="day-header"><h3>📅 26/7 (日) 天王寺親子日</h3><div class="order-btns"><button onclick="moveUp('block-7')">↑</button><button onclick="moveDown('block-7')">↓</button></div></div>
+    <!-- Day 7 (星期日 - 紅色外框標示) -->
+    <div class="day-block" id="block-7" style="border: 2px solid #ff4d4d; box-shadow: 0 4px 12px rgba(255,77,77,0.15);">
+        <div class="day-header" style="background: #ff4d4d;"><h3>📅 26/7 (日) 天王寺親子日</h3><div class="order-btns"><button onclick="moveUp('block-7')">↑</button><button onclick="moveDown('block-7')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
                 <a class="location-link" href="javascript:void(0)">09:30-12:00 天王寺動物園</a>
@@ -199,6 +217,7 @@
         </div>
     </div>
 
+    <!-- Day 8 -->
     <div class="day-block" id="block-8">
         <div class="day-header"><h3>📅 27/7 (一) 浜寺公園→臨空城</h3><div class="order-btns"><button onclick="moveUp('block-8')">↑</button><button onclick="moveDown('block-8')">↓</button></div></div>
         <div class="card-content">
@@ -219,6 +238,7 @@
         </div>
     </div>
 
+    <!-- Day 9 -->
     <div class="day-block" id="block-9">
         <div class="day-header"><h3>📅 28/7 (二) 心齋橋道頓堀</h3><div class="order-btns"><button onclick="moveUp('block-9')">↑</button><button onclick="moveDown('block-9')">↓</button></div></div>
         <div class="card-content">
@@ -237,6 +257,7 @@
         </div>
     </div>
 
+    <!-- Day 10 -->
     <div class="day-block" id="block-10">
         <div class="day-header"><h3>📅 29/7 (三) 回程日</h3><div class="order-btns"><button onclick="moveUp('block-10')">↑</button><button onclick="moveDown('block-10')">↓</button></div></div>
         <div class="card-content">
@@ -252,6 +273,65 @@
     </div>
 </div>
 
+<!-- 備註區 -->
+<div id="notes-app" class="budget-section">
+    <h4 style="margin:0 0 15px 0; color:var(--accent);">📝 旅程備註資料夾</h4>
+    
+    <div class="note-category" style="border-left-color: #ff9800;">
+        <h5>🚇 交通費用總結 (2大+7歲)</h5>
+        <table class="expense-table" style="font-size: 11px;">
+            <thead><tr><th>項目</th><th>成人2位</th><th>7歲兒1位</th><th>總計</th></tr></thead>
+            <tbody>
+                <tr><td>ICOCA 10天</td><td>15,000円</td><td>7,500円</td><td>22,500円</td></tr>
+                <tr><td>機場來回</td><td>2,000円</td><td>1,000円</td><td>3,000円</td></tr>
+                <tr style="font-weight:bold; color:#d9534f;"><td>總計</td><td>17,000円</td><td>8,500円</td><td>25,500円</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="note-category" style="border-left-color: #e91e63;">
+        <h5>🕹️ 玩樂與夾公仔景點</h5>
+        <ul class="note-list">
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Round+1+Stadium+Sennichimae">Round 1 Stadium 千日前店</a>
+                <span class="note-addr">📍 難波 1 丁目 3-1<br>🚇 Osaka Metro 難波站 15-A 出口步行 3-4 分鐘</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Taito+Station+Namba">Taito Station 難波店</a>
+                <span class="note-addr">📍 難波千日前 15-12<br>🚇 南海電鐵「難波站」北館東出口步行 2 分鐘 (顯眼紅色太空侵略者標誌)</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=GiGO+Dotonbori+Honten">GiGO 大阪道頓堀本店</a>
+                <span class="note-addr">📍 道頓堀 1-8-22 道頓座大樓 1F～3F<br>🚇 Osaka Metro「難波站」15-B 出口步行 6 分鐘 / 難波丸井5F</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=サープラ大阪道頓堀あそびタウン">サープラ大阪道頓堀あそびタウン</a>
+                <span class="note-addr">📍 道頓堀1-2-16</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=クレーン横丁道頓堀">Crane Yokocho クレーン横丁道頓堀</a>
+                <span class="note-addr">📍 道頓堀 1 Chome−7−21 地下1階</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=LINKS+UMEDA+Mollyfantasy">Mollyfantasy (LINKS UMEDA)</a>
+                <span class="note-addr">📍 大深町 1-1 ヨドバシ梅田タワー LINKS UMEDA 5 樓</span>
+            </li>
+            <li><a class="location-link" href="https://maps.app.goo.gl/F7rQuWWLnLk9cqp17">結屋 新世界店 (天王寺)</a>
+                <span class="note-addr">📍 點擊連結查看地圖</span>
+            </li>
+        </ul>
+    </div>
+
+    <div class="note-category" style="border-left-color: #4caf50;">
+        <h5>🍴 美食餐廳</h5>
+        <ul class="note-list">
+            <li><a class="location-link" href="https://maps.app.goo.gl/2tnuoPLjgRnuN4dE8">【函館 函太郎】北海道直送迴轉壽司</a></li>
+            <li><a class="location-link" href="https://maps.app.goo.gl/9xAxcubjP1uuTcRk8">OHANABATAKE</a></li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=AU+BON+UN+SIX+Grand+Front+Osaka">AU BON UN SIX (定食)</a>
+                <span class="note-addr">📍 大深町4-20 グランフロント大阪 南館 7F</span>
+            </li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=七圍爐+Grand+Green+Osaka">七圍爐</a>
+                <span class="note-addr">📍 大深町5-54 Grand Green Osaka 南館 B1F<br>🚇 距離 JR 大阪站步行約 1 分鐘</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- 記帳 App 區 -->
 <div id="budget-app" class="budget-section">
     <h4 style="margin:0 0 10px 0;">💰 旅程開支 (點擊文字或數字即可修改)</h4>
     <div class="quick-area">
@@ -294,22 +374,22 @@
     const container = document.getElementById('itinerary-container');
     const colors = ['#ffb7c5', '#6fbaf8', '#9d81ba', '#ffa726', '#81c784', '#ffd54f', '#a1887f'];
 
-    function saveOrder() { localStorage.setItem('osakaOriginalFix', JSON.stringify(Array.from(container.children).map(c => c.id))); }
+    function saveOrder() { localStorage.setItem('osakaNotesApp', JSON.stringify(Array.from(container.children).map(c => c.id))); }
     function loadOrder() {
-        const saved = JSON.parse(localStorage.getItem('osakaOriginalFix'));
+        const saved = JSON.parse(localStorage.getItem('osakaNotesApp'));
         if (saved) saved.forEach(id => { const el = document.getElementById(id); if (el) container.appendChild(el); });
     }
     function moveUp(id) { const el = document.getElementById(id); if (el.previousElementSibling) { container.insertBefore(el, el.previousElementSibling); saveOrder(); } }
     function moveDown(id) { const el = document.getElementById(id); if (el.nextElementSibling) { container.insertBefore(el.nextElementSibling, el); saveOrder(); } }
 
-    let expenses = JSON.parse(localStorage.getItem('osakaOriginalExFix')) || [];
+    let expenses = JSON.parse(localStorage.getItem('osakaNotesEx')) || [];
     function getToday() { const d = new Date(); return `${d.getDate()}/${d.getMonth()+1}`; }
     function quickAdd(date, name, amount, cat) { expenses.unshift({ id: Date.now(), date, name, amount, cat }); update(); }
     function updateField(id, field, value) {
         const idx = expenses.findIndex(e => e.id == id);
         if (idx > -1) {
             expenses[idx][field] = (field === 'amount') ? (parseFloat(value) || 0) : value;
-            localStorage.setItem('osakaOriginalExFix', JSON.stringify(expenses));
+            localStorage.setItem('osakaNotesEx', JSON.stringify(expenses));
             updateTotalsOnly(); renderCharts();
         }
     }
@@ -320,7 +400,7 @@
         document.getElementById('hkd-total').innerText = 'HK$ ' + Math.round(total * 0.051).toLocaleString(); 
     }
     function update() {
-        localStorage.setItem('osakaOriginalExFix', JSON.stringify(expenses));
+        localStorage.setItem('osakaNotesEx', JSON.stringify(expenses));
         const list = document.getElementById('expense-list');
         list.innerHTML = '';
         expenses.forEach(e => {
