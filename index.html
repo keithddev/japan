@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 終極版</title>
+    <title>大阪親子之旅 2026 (原版行程)</title>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
@@ -22,8 +22,6 @@
         .location-link:after { content: " ↗"; font-size: 12px; }
         .transport { background: #eef7ff; font-size: 11px; padding: 6px; border-radius: 4px; margin: 5px 0; color: #444; border: 1px dashed var(--secondary); }
         .info { font-size: 12px; color: #666; line-height: 1.5; margin: 5px 0; }
-        .highlight { color: #d9534f; font-weight: bold; background: #ffebee; padding: 2px 5px; border-radius: 4px; }
-        .tag { display: inline-block; background: #eee; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-right: 4px; }
         
         .quick-pay-btn { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; padding: 6px 10px; border-radius: 6px; font-size: 11px; margin-top: 5px; cursor: pointer; display: inline-block; font-weight: bold; }
 
@@ -34,6 +32,339 @@
         .expense-table { width: 100%; font-size: 12px; border-collapse: collapse; }
         .edit-input { width: 100%; border: 1px solid transparent; padding: 5px; font-size: 13px; border-radius: 4px; box-sizing: border-box; }
         .edit-input:focus { border-color: var(--secondary); background: #f0f7ff; outline: none; }
+        
+        .charts-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .chart-box { text-align: center; }
+        .pie-chart { width: 140px; height: 140px; transform: rotate(-90deg); border-radius: 50%; margin: 10px auto; }
+        .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 11px; margin-top: 10px; }
+        .total-display { background: #fff3f3; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: right; }
+        .hkd { color: var(--primary); font-size: 22px; font-weight: bold; display: block; }
+        .sticky-footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-around; z-index: 1000; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h3 style="margin:0">☁️ 大阪 10 天親子 App</h3>
+    <small>原版文檔直出 (不含 AI 修改)</small>
+</header>
+
+<div class="nav-tabs">
+    <a href="#block-1">D1</a> <a href="#block-2">D2</a> <a href="#block-3">D3</a>
+    <a href="#block-4">D4</a> <a href="#block-5">D5</a> <a href="#block-6">D6</a>
+    <a href="#block-7">D7</a> <a href="#block-8">D8</a> <a href="#block-9">D9</a>
+    <a href="#block-10">D10</a> <a href="#budget-app">📊 帳本</a>
+</div>
+
+<div id="itinerary-container">
+    <!-- Day 1 -->
+    <div class="day-block" id="block-1">
+        <div class="day-header"><h3>📅 20/7 (一) 抵達日：梅田</h3><div class="order-btns"><button onclick="moveUp('block-1')">↑</button><button onclick="moveDown('block-1')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">13:45 關西機場抵達 (先去臨空城)</a>
+                <div class="transport">14:30-15:20 JR關空快速→JR大阪站 中央北口</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">15:30 阪急大阪龍仕柏 Check-in</a>
+                <div class="info">步行 3 分鐘</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">16:00-17:30 LINKS UMEDA 5F</a>
+                <div class="info">Mollyfantasy 旋轉木馬/幼兒區、jins</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">17:45-18:30 LINKS UMEDA 內用餐</a>
+                <div class="info">超市補給，19:00 步行回酒店休息。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 2 -->
+    <div class="day-block" id="block-2">
+        <div class="day-header" style="background:var(--accent)"><h3>📅 21/7 (二) 京都四景</h3><div class="order-btns"><button onclick="moveUp('block-2')">↑</button><button onclick="moveDown('block-2')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">08:00-09:00 伏見稻荷</a>
+                <div class="transport">07:30 JR大阪出發 → JR京都 → JR稻荷 (36分)</div>
+                <div class="info">千本鳥居</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">12:00-13:00 清水寺 & 午餐</a>
+                <div class="transport">伏見稻荷站 → 京阪電車 → 清水五条站 → 步行/巴士 → 清水寺</div>
+                <div class="info">鐵道便當午餐。13:30-16:00 清水坂散步。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">16:30-18:30 鐵道博物館</a>
+                <div class="transport">嵯峨野線 → 梅小路京都西</div>
+                <div class="quick-pay-btn" onclick="quickAdd('21/7', '鐵道博物館門票', 0, '玩')">➕ 記門票</div>
+                <div class="info">19:00 JR大阪回程酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 3 -->
+    <div class="day-block" id="block-3">
+        <div class="day-header"><h3>📅 22/7 (三) 神戶/難波</h3><div class="order-btns"><button onclick="moveUp('block-3')">↑</button><button onclick="moveDown('block-3')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">09:00-11:30 北野異人館街</a>
+                <div class="transport">07:30 大阪酒店出發 → JR 到三宮站 (約30-40分)</div>
+                <div class="info">參觀重點館舍 (3-4 館)。組合票約 ¥2000–3000。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">13:00-17:00 神戶臨海樂園 / umie</a>
+                <div class="transport">12:30 JR 三宮 → 神戶站 → umie (步行 5 分)</div>
+                <div class="info">購物、摩天輪、MOSAIC 海邊散步、食甜品。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">15:15-16:30 Round1 千日前店</a>
+                <div class="info">難波站 15-A 出口步行約 3-4 分。スポッチャ攀岩。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">16:45-17:30 Taito Station 難波店</a>
+                <div class="info">夾公仔。18:00 JR大阪回程酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 4 -->
+    <div class="day-block" id="block-4">
+        <div class="day-header"><h3>📅 23/7 (四) 奈良親子日</h3><div class="order-btns"><button onclick="moveUp('block-4')">↑</button><button onclick="moveDown('block-4')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">08:00-08:40 奈良公園看鹿</a>
+                <div class="transport">07:30 JR大阪 → 近鐵難波 → 近鐵奈良</div>
+                <div class="info">鹿仙貝餵鹿。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">09:00-13:00 生駒山上遊樂園</a>
+                <div class="transport">生駒纜車 → 遊樂園</div>
+                <div class="info">旋轉木馬/海盜船。18:00 近鐵 → JR大阪回酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-block" id="block-5">
+        <div class="day-header"><h3>📅 24/7 (五) 黑門市場→海遊館</h3><div class="order-btns"><button onclick="moveUp('block-5')">↑</button><button onclick="moveDown('block-5')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">08:30-10:30 黑門市場</a>
+                <div class="transport">07:30 JR大阪 → 難波站</div>
+                <div class="info">早市海鮮試吃。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">11:15-14:30 海遊館</a>
+                <div class="transport">地鐵 → 海遊館</div>
+                <div class="info">鯨鯊餵食+午餐。</div>
+                <div class="quick-pay-btn" onclick="quickAdd('24/7', '海遊館門票', 0, '玩')">➕ 記門票</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">15:15-17:30 心齋橋購物</a>
+                <div class="transport">御堂筋線 → 心齋橋</div>
+                <div class="info">UNIQLO/藥妝掃貨。18:00 難波→JR大阪回酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-block" id="block-6">
+        <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">08:45-11:30 大阪城公園</a>
+                <div class="transport">07:30 JR大阪 → 大阪城公園站</div>
+                <div class="info">天守閣外圍拍照。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">13:30-17:30 天神祭陸渡御</a>
+                <div class="transport">天滿橋 → 天神祭</div>
+                <div class="info">神輿遊行。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">18:00-21:00 櫻之宮公園花火</a>
+                <div class="info">船渡御+奉納花火。21:30 天滿橋→JR大阪回酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-block" id="block-7">
+        <div class="day-header"><h3>📅 26/7 (日) 天王寺親子日</h3><div class="order-btns"><button onclick="moveUp('block-7')">↑</button><button onclick="moveDown('block-7')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">09:30-12:00 天王寺動物園</a>
+                <div class="transport">09:00 JR大阪 → JR天王寺 東口</div>
+                <div class="info">企鵝/猴子。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">14:30-16:30 Kids Plaza Osaka</a>
+                <div class="transport">谷町線 → Kids Plaza</div>
+                <div class="info">科學館體驗。17:30 JR大阪回程酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-block" id="block-8">
+        <div class="day-header"><h3>📅 27/7 (一) 浜寺公園→臨空城</h3><div class="order-btns"><button onclick="moveUp('block-8')">↑</button><button onclick="moveDown('block-8')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">09:20-11:30 浜寺交通遊園</a>
+                <div class="transport">08:30 JR大阪出發 → 09:10 羽衣站落車</div>
+                <div class="info">睇D51、阪堺電車、兒童火車/卡丁車。11:30附近午餐。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">13:00-16:00 臨空城 Premium Outlets</a>
+                <div class="transport">12:30 羽衣站 → 臨空城站 (2號出口)</div>
+                <div class="info">品牌掃貨。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">16:00-17:00 Seacle周邊</a>
+                <div class="info">西松屋、夾公仔、補BB貨。18:00 臨空城→JR大阪回酒店。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 9 -->
+    <div class="day-block" id="block-9">
+        <div class="day-header"><h3>📅 28/7 (二) 心齋橋道頓堀</h3><div class="order-btns"><button onclick="moveUp('block-9')">↑</button><button onclick="moveDown('block-9')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">10:00 心齋橋筋商店街</a>
+                <div class="transport">JR大阪 → 難波站</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">12:30-13:30 道頓堀</a>
+                <div class="info">章魚燒午餐。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">15:30-17:30 夾公仔 (道頓堀/難波)</a>
+                <div class="info">Taito Station、GiGO 道頓堀本店、Crane Yokocho。18:00 難波→JR大阪。</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Day 10 -->
+    <div class="day-block" id="block-10">
+        <div class="day-header"><h3>📅 29/7 (三) 回程日</h3><div class="order-btns"><button onclick="moveUp('block-10')">↑</button><button onclick="moveDown('block-10')">↓</button></div></div>
+        <div class="card-content">
+            <div class="loc-item">
+                <a class="location-link" href="#">09:00-10:30 酒店整理行李退房</a>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="#">11:15-12:15 前往關西機場</a>
+                <div class="transport">JR關空快速 → 關西機場 Check-in</div>
+                <div class="info">14:15 關西機場起飛，結束愉快旅程。</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 記帳 App 區 -->
+<div id="budget-app" class="budget-section">
+    <h4 style="margin:0 0 10px 0;">💰 旅程開支 (點擊文字或數字即可修改)</h4>
+    <div class="quick-area">
+        <button class="q-btn" onclick="quickAdd(getToday(), 'ICOCA加值', 1000, '行')">🚇 ICOCA</button>
+        <button class="q-btn" onclick="quickAdd(getToday(), '夾公仔', 100, '玩')">🎮 夾公仔</button>
+        <button class="q-btn" onclick="quickAdd(getToday(), '家庭午餐', 0, '食')">🍴 午餐</button>
+        <button class="q-btn" onclick="quickAdd(getToday(), '藥妝/購物', 0, '買')">🛍️ 購物</button>
+    </div>
+
+    <table class="expense-table">
+        <thead><tr style="color:#888"><th>日期</th><th>項目</th><th>金額(円)</th><th></th></tr></thead>
+        <tbody id="expense-list"></tbody>
+    </table>
+
+    <div class="total-display">
+        <span id="hkd-total" class="hkd">HK$ 0</span>
+        <div style="font-weight:bold;"><span id="jpy-total">0</span> 円</div>
+    </div>
+
+    <div class="charts-container">
+        <div class="chart-box">
+            <div style="font-size:12px; font-weight:bold; color:#666">開支類別 (Type)</div>
+            <svg id="chart-cat" class="pie-chart" viewBox="0 0 32 32"></svg>
+            <div id="legend-cat" class="legend"></div>
+        </div>
+        <div class="chart-box" style="border-top:1px dashed #eee; padding-top:20px;">
+            <div style="font-size:12px; font-weight:bold; color:#666">每日統計 (Date)</div>
+            <svg id="chart-date" class="pie-chart" viewBox="0 0 32 32"></svg>
+            <div id="legend-date" class="legend"></div>
+        </div>
+    </div>
+</div>
+
+<div class="sticky-footer">
+    <button onclick="window.scrollTo(0,0)">🔝 頂部</button>
+    <button onclick="if(confirm('重設順序及清除所有數據？')){localStorage.clear(); location.reload();}">🔄 重設</button>
+</div>
+
+<script>
+    const container = document.getElementById('itinerary-container');
+    const colors = ['#ffb7c5', '#6fbaf8', '#9d81ba', '#ffa726', '#81c784', '#ffd54f', '#a1887f'];
+
+    function saveOrder() { localStorage.setItem('osakaOriginal', JSON.stringify(Array.from(container.children).map(c => c.id))); }
+    function loadOrder() {
+        const saved = JSON.parse(localStorage.getItem('osakaOriginal'));
+        if (saved) saved.forEach(id => { const el = document.getElementById(id); if (el) container.appendChild(el); });
+    }
+    function moveUp(id) { const el = document.getElementById(id); if (el.previousElementSibling) { container.insertBefore(el, el.previousElementSibling); saveOrder(); } }
+    function moveDown(id) { const el = document.getElementById(id); if (el.nextElementSibling) { container.insertBefore(el.nextElementSibling, el); saveOrder(); } }
+
+    let expenses = JSON.parse(localStorage.getItem('osakaOriginalEx')) || [];
+    function getToday() { const d = new Date(); return `${d.getDate()}/${d.getMonth()+1}`; }
+    function quickAdd(date, name, amount, cat) { expenses.unshift({ id: Date.now(), date, name, amount, cat }); update(); }
+    function updateField(id, field, value) {
+        const idx = expenses.findIndex(e => e.id == id);
+        if (idx > -1) {
+            expenses[idx][field] = (field === 'amount') ? (parseFloat(value) || 0) : value;
+            localStorage.setItem('osakaOriginalEx', JSON.stringify(expenses));
+            updateTotalsOnly(); renderCharts();
+        }
+    }
+    function deleteEx(id) { expenses = expenses.filter(e => e.id !== id); update(); }
+    function updateTotalsOnly() {
+        let total = 0; expenses.forEach(e => total += e.amount);
+        document.getElementById('jpy-total').innerText = total.toLocaleString();
+        document.getElementById('hkd-total').innerText = 'HK$ ' + Math.round(total * 0.051).toLocaleString(); 
+    }
+    function update() {
+        localStorage.setItem('osakaOriginalEx', JSON.stringify(expenses));
+        const list = document.getElementById('expense-list');
+        list.innerHTML = '';
+        expenses.forEach(e => {
+            list.innerHTML += `<tr>
+                <td style="width:20%"><input type="text" class="edit-input" value="${e.date}" oninput="updateField(${e.id}, 'date', this.value)"></td>
+                <td style="width:40%"><input type="text" class="edit-input" value="${e.name}" oninput="updateField(${e.id}, 'name', this.value)"></td>
+                <td style="width:30%"><input type="number" class="edit-input" style="text-align:right; font-weight:bold" value="${e.amount}" oninput="updateField(${e.id}, 'amount', this.value)"></td>
+                <td style="width:10%; text-align:right;"><button style="border:none;background:none;color:red;font-size:18px;" onclick="deleteEx(${e.id})">×</button></td>
+            </tr>`;
+        });
+        updateTotalsOnly(); renderCharts();
+    }
+    function renderCharts() { drawPie('chart-cat', 'legend-cat', 'cat'); drawPie('chart-date', 'legend-date', 'date'); }
+    function drawPie(svgId, legendId, key) {
+        const svg = document.getElementById(svgId); const legend = document.getElementById(legendId);
+        svg.innerHTML = ''; legend.innerHTML = ''; if (expenses.length === 0) return;
+        const summary = {}; let grandTotal = 0;
+        expenses.forEach(e => { summary[e[key]] = (summary[e[key]] || 0) + e.amount; grandTotal += e.amount; });
+        if (grandTotal === 0) return;
+        let cumulativePercent = 0;
+        Object.keys(summary).forEach((label, i) => {
+            const percent = summary[label] / grandTotal; const [startX, startY] = getCoords(cumulativePercent);
+            cumulativePercent += percent; const [endX, endY] = getCoords(cumulativePercent);
+            const largeArc = percent > 0.5 ? 1 : 0; const color = colors[i % colors.length];
+            svg.innerHTML += `<path d="M 16 16 L ${startX} ${startY} A 16 16 0 ${largeArc} 1 ${endX} ${endY} Z" fill="${color}"></path>`;
+            legend.innerHTML += `<div class="legend-item"><div class="legend-color" style="background:${color}"></div>${label}</div>`;
+        });
+    }
+    function getCoords(percent) { return [ 16 + Math.cos(2 * Math.PI * percent) * 16, 16 + Math.sin(2 * Math.PI * percent) * 16 ]; }
+    window.onload = () => { loadOrder(); update(); };
+</script>
+</body>
+</html>
         
         .charts-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
         .chart-box { text-align: center; }
