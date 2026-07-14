@@ -340,7 +340,8 @@
         <button class="q-btn" onclick="quickAdd(getToday(), '夾公仔', 100, '玩')">🎮 夾公仔</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '家庭午餐', 0, '食')">🍴 午餐</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '藥妝/購物', 0, '買')">🛍️ 購物</button>
-        <button class="sync-btn" id="sync-btn" onclick="syncToCloud()">☁️ 一鍵同步未儲存帳目至 Google Sheet</button>
+        <button class="sync-btn" id="sync-btn" style="grid-column: span 2;" onclick="syncToCloud()">☁️ 1. 備份上傳</button>
+        <button class="sync-btn" id="load-btn" style="grid-column: span 2; background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7;" onclick="loadFromCloud()">📥 2. 從雲端下載</button>
     </div>
 
     <table class="expense-table">
@@ -351,19 +352,6 @@
     <div class="total-display">
         <span id="hkd-total" class="hkd">HK$ 0</span>
         <div style="font-weight:bold;"><span id="jpy-total">0</span> 円</div>
-    </div>
-
-    <div class="charts-container">
-        <div class="chart-box">
-            <div style="font-size:12px; font-weight:bold; color:#666">開支類別 (Type)</div>
-            <svg id="chart-cat" class="pie-chart" viewBox="0 0 32 32"></svg>
-            <div id="legend-cat" class="legend"></div>
-        </div>
-        <div class="chart-box" style="border-top:1px dashed #eee; padding-top:20px;">
-            <div style="font-size:12px; font-weight:bold; color:#666">每日統計 (Date)</div>
-            <svg id="chart-date" class="pie-chart" viewBox="0 0 32 32"></svg>
-            <div id="legend-date" class="legend"></div>
-        </div>
     </div>
 </div>
 
@@ -390,20 +378,18 @@
     let expenses = JSON.parse(localStorage.getItem('osakaNotesSyncEx')) || [];
     function getToday() { const d = new Date(); return `${d.getDate()}/${d.getMonth()+1}`; }
     
-    // 新增帳目時預設 synced 為 false
     function quickAdd(date, name, amount, cat) { 
         expenses.unshift({ id: Date.now(), date, name, amount, cat, synced: false }); 
         update(); 
     }
     
-    // 修改帳目時標記為未同步
     function updateField(id, field, value) {
         const idx = expenses.findIndex(e => e.id == id);
         if (idx > -1) {
             expenses[idx][field] = (field === 'amount') ? (parseFloat(value) || 0) : value;
             expenses[idx].synced = false; 
             localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
-            updateTotalsOnly(); renderCharts(); updateListOnly();
+            updateTotalsOnly(); updateListOnly();
         }
     }
     
@@ -415,7 +401,6 @@
         document.getElementById('hkd-total').innerText = 'HK$ ' + Math.round(total * 0.051).toLocaleString(); 
     }
 
-    // 單獨抽出的列表渲染，加入狀態圖示
     function updateListOnly() {
         const list = document.getElementById('expense-list');
         list.innerHTML = '';
@@ -435,24 +420,16 @@
         localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
         updateListOnly();
         updateTotalsOnly(); 
-        renderCharts();
     }
 
-    // 批量同步至 Google Sheet 功能
+    // 上傳功能 (Push)
     function syncToCloud() {
-        if(SCRIPT_URL === 'YOUR_WEB_APP_URL_HERE') {
-            alert('請先在 HTML 底部代碼中替換你的 SCRIPT_URL！');
-            return;
-        }
-
+        if(SCRIPT_URL === 'YOUR_WEB_APP_URL_HERE') return alert('請先替換 SCRIPT_URL！');
         const unsynced = expenses.filter(e => !e.synced);
-        if (unsynced.length === 0) {
-            alert('沒有需要同步的新帳目！全部已經 ✅');
-            return;
-        }
+        if (unsynced.length === 0) return alert('沒有需要同步的新帳目！全部已經 ✅');
 
         const btn = document.getElementById('sync-btn');
-        btn.innerText = '⏳ 正在同步中...';
+        btn.innerText = '⏳ 上傳中...';
         btn.disabled = true;
 
         fetch(SCRIPT_URL, {
@@ -463,44 +440,36 @@
         .then(response => response.json())
         .then(data => {
             if(data.status === "success") {
-                // 將剛才提交的未同步項目標記為已同步
-                expenses.forEach(e => {
-                    if (!e.synced) e.synced = true;
-                });
-                localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
-                updateListOnly();
-                alert(`成功將 ${data.syncedCount} 筆帳目同步至 Google Sheet！`);
-            } else {
-                alert("同步失敗：" + data.message);
-            }
+                expenses.forEach(e => { if (!e.synced) e.synced = true; });
+                update();
+                alert(`成功上傳 ${data.syncedCount} 筆帳目！`);
+            } else alert("同步失敗：" + data.message);
         })
-        .catch(error => {
-            console.error('Error!', error);
-            alert("同步失敗，請檢查網絡連線。");
-        })
-        .finally(() => {
-            btn.innerText = '☁️ 一鍵同步未儲存帳目至 Google Sheet';
-            btn.disabled = false;
-        });
+        .catch(error => alert("上傳失敗，請檢查網絡連線。"))
+        .finally(() => { btn.innerText = '☁️ 1. 備份上傳'; btn.disabled = false; });
     }
 
-    function renderCharts() { drawPie('chart-cat', 'legend-cat', 'cat'); drawPie('chart-date', 'legend-date', 'date'); }
-    function drawPie(svgId, legendId, key) {
-        const svg = document.getElementById(svgId); const legend = document.getElementById(legendId);
-        svg.innerHTML = ''; legend.innerHTML = ''; if (expenses.length === 0) return;
-        const summary = {}; let grandTotal = 0;
-        expenses.forEach(e => { summary[e[key]] = (summary[e[key]] || 0) + e.amount; grandTotal += e.amount; });
-        if (grandTotal === 0) return;
-        let cumulativePercent = 0;
-        Object.keys(summary).forEach((label, i) => {
-            const percent = summary[label] / grandTotal; const [startX, startY] = getCoords(cumulativePercent);
-            cumulativePercent += percent; const [endX, endY] = getCoords(cumulativePercent);
-            const largeArc = percent > 0.5 ? 1 : 0; const color = colors[i % colors.length];
-            svg.innerHTML += `<path d="M 16 16 L ${startX} ${startY} A 16 16 0 ${largeArc} 1 ${endX} ${endY} Z" fill="${color}"></path>`;
-            legend.innerHTML += `<div class="legend-item"><div class="legend-color" style="background:${color}"></div>${label}</div>`;
-        });
+    // 下載功能 (Pull)
+    function loadFromCloud() {
+        if(SCRIPT_URL === 'YOUR_WEB_APP_URL_HERE') return alert('請先替換 SCRIPT_URL！');
+        
+        const btn = document.getElementById('load-btn');
+        btn.innerText = '⏳ 下載中...';
+        btn.disabled = true;
+
+        fetch(SCRIPT_URL)
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === "success") {
+                expenses = data.expenses; // 用雲端資料覆蓋本地
+                update();
+                alert("✅ 成功從雲端下載所有帳目！");
+            } else alert("下載失敗：" + data.message);
+        })
+        .catch(error => alert("下載失敗，請檢查網絡連線。"))
+        .finally(() => { btn.innerText = '📥 2. 從雲端下載'; btn.disabled = false; });
     }
-    function getCoords(percent) { return [ 16 + Math.cos(2 * Math.PI * percent) * 16, 16 + Math.sin(2 * Math.PI * percent) * 16 ]; }
+
     window.onload = () => { loadOrder(); update(); };
 </script>
 </body>
