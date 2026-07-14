@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 (原版+備註)</title>
+    <title>大阪親子之旅 2026 (雲端同步版)</title>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
@@ -28,19 +28,20 @@
         .budget-section { background: white; margin: 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--accent); }
         .quick-area { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 15px; }
         .q-btn { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: 8px 2px; border-radius: 8px; font-size: 10px; font-weight: bold; text-align: center; }
+        .sync-btn { background: #e3f2fd; color: #1565c0; font-size: 12px; grid-column: span 4; padding: 10px; border: 1px solid #90caf9; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
         .expense-table { width: 100%; font-size: 12px; border-collapse: collapse; }
         .expense-table th { padding-bottom: 8px; border-bottom: 2px solid #eee; text-align: left; }
         .expense-table td { padding: 8px 0; border-bottom: 1px solid #eee; }
         .edit-input { width: 100%; border: 1px solid transparent; padding: 5px; font-size: 13px; border-radius: 4px; box-sizing: border-box; }
         .edit-input:focus { border-color: var(--secondary); background: #f0f7ff; outline: none; }
+        .status-icon { font-size: 14px; text-align: center; width: 25px; }
         
         /* 備註區專用樣式 */
         .note-category { background: #f9f9f9; padding: 12px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--secondary); }
         .note-category h5 { margin: 0 0 10px 0; font-size: 14px; color: #333; }
         .note-list { list-style: none; padding: 0; margin: 0; font-size: 12px; color: #555; }
         .note-list li { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #ddd; }
-        .note-list li:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .note-addr { font-size: 11px; color: #888; display: block; margin-top: 3px; }
 
         .charts-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
@@ -56,7 +57,7 @@
 
 <header>
     <h3 style="margin:0">☁️ 大阪 10 天親子 App</h3>
-    <small>原版行程 + 備註資料庫</small>
+    <small>原版行程 + 雲端同步版</small>
 </header>
 
 <div class="nav-tabs">
@@ -333,16 +334,17 @@
 
 <!-- 記帳 App 區 -->
 <div id="budget-app" class="budget-section">
-    <h4 style="margin:0 0 10px 0;">💰 旅程開支 (點擊文字或數字即可修改)</h4>
+    <h4 style="margin:0 0 10px 0;">💰 離線記帳與雲端同步</h4>
     <div class="quick-area">
         <button class="q-btn" onclick="quickAdd(getToday(), 'ICOCA加值', 1000, '行')">🚇 ICOCA</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '夾公仔', 100, '玩')">🎮 夾公仔</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '家庭午餐', 0, '食')">🍴 午餐</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '藥妝/購物', 0, '買')">🛍️ 購物</button>
+        <button class="sync-btn" id="sync-btn" onclick="syncToCloud()">☁️ 一鍵同步未儲存帳目至 Google Sheet</button>
     </div>
 
     <table class="expense-table">
-        <thead><tr style="color:#888"><th>日期</th><th>項目</th><th>金額(円)</th><th></th></tr></thead>
+        <thead><tr style="color:#888"><th style="width:10%">狀態</th><th style="width:20%">日期</th><th style="width:35%">項目</th><th style="width:25%">金額(円)</th><th style="width:10%"></th></tr></thead>
         <tbody id="expense-list"></tbody>
     </table>
 
@@ -367,52 +369,121 @@
 
 <div class="sticky-footer">
     <button onclick="window.scrollTo(0,0)">🔝 頂部</button>
-    <button onclick="if(confirm('重設順序及清除所有數據？')){localStorage.clear(); location.reload();}">🔄 重設</button>
+    <button onclick="if(confirm('重設順序及清除手機數據？(不影響雲端)')){localStorage.clear(); location.reload();}">🔄 重設</button>
 </div>
 
 <script>
+    // ⚠️ 在這裡替換你的 Google Apps Script Web App URL
+    const SCRIPT_URL = 'YOUR_WEB_APP_URL_HERE'; 
+
     const container = document.getElementById('itinerary-container');
     const colors = ['#ffb7c5', '#6fbaf8', '#9d81ba', '#ffa726', '#81c784', '#ffd54f', '#a1887f'];
 
-    function saveOrder() { localStorage.setItem('osakaNotesApp', JSON.stringify(Array.from(container.children).map(c => c.id))); }
+    function saveOrder() { localStorage.setItem('osakaNotesSyncApp', JSON.stringify(Array.from(container.children).map(c => c.id))); }
     function loadOrder() {
-        const saved = JSON.parse(localStorage.getItem('osakaNotesApp'));
+        const saved = JSON.parse(localStorage.getItem('osakaNotesSyncApp'));
         if (saved) saved.forEach(id => { const el = document.getElementById(id); if (el) container.appendChild(el); });
     }
     function moveUp(id) { const el = document.getElementById(id); if (el.previousElementSibling) { container.insertBefore(el, el.previousElementSibling); saveOrder(); } }
     function moveDown(id) { const el = document.getElementById(id); if (el.nextElementSibling) { container.insertBefore(el.nextElementSibling, el); saveOrder(); } }
 
-    let expenses = JSON.parse(localStorage.getItem('osakaNotesEx')) || [];
+    let expenses = JSON.parse(localStorage.getItem('osakaNotesSyncEx')) || [];
     function getToday() { const d = new Date(); return `${d.getDate()}/${d.getMonth()+1}`; }
-    function quickAdd(date, name, amount, cat) { expenses.unshift({ id: Date.now(), date, name, amount, cat }); update(); }
+    
+    // 新增帳目時預設 synced 為 false
+    function quickAdd(date, name, amount, cat) { 
+        expenses.unshift({ id: Date.now(), date, name, amount, cat, synced: false }); 
+        update(); 
+    }
+    
+    // 修改帳目時標記為未同步
     function updateField(id, field, value) {
         const idx = expenses.findIndex(e => e.id == id);
         if (idx > -1) {
             expenses[idx][field] = (field === 'amount') ? (parseFloat(value) || 0) : value;
-            localStorage.setItem('osakaNotesEx', JSON.stringify(expenses));
-            updateTotalsOnly(); renderCharts();
+            expenses[idx].synced = false; 
+            localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
+            updateTotalsOnly(); renderCharts(); updateListOnly();
         }
     }
+    
     function deleteEx(id) { expenses = expenses.filter(e => e.id !== id); update(); }
+    
     function updateTotalsOnly() {
         let total = 0; expenses.forEach(e => total += e.amount);
         document.getElementById('jpy-total').innerText = total.toLocaleString();
         document.getElementById('hkd-total').innerText = 'HK$ ' + Math.round(total * 0.051).toLocaleString(); 
     }
-    function update() {
-        localStorage.setItem('osakaNotesEx', JSON.stringify(expenses));
+
+    // 單獨抽出的列表渲染，加入狀態圖示
+    function updateListOnly() {
         const list = document.getElementById('expense-list');
         list.innerHTML = '';
         expenses.forEach(e => {
+            const statusIcon = e.synced ? '✅' : '☁️';
             list.innerHTML += `<tr>
-                <td style="width:20%"><input type="text" class="edit-input" value="${e.date}" oninput="updateField(${e.id}, 'date', this.value)"></td>
-                <td style="width:40%"><input type="text" class="edit-input" value="${e.name}" oninput="updateField(${e.id}, 'name', this.value)"></td>
-                <td style="width:30%"><input type="number" class="edit-input" style="text-align:right; font-weight:bold" value="${e.amount}" oninput="updateField(${e.id}, 'amount', this.value)"></td>
-                <td style="width:10%; text-align:right;"><button style="border:none;background:none;color:red;font-size:18px;" onclick="deleteEx(${e.id})">×</button></td>
+                <td class="status-icon">${statusIcon}</td>
+                <td><input type="text" class="edit-input" value="${e.date}" oninput="updateField(${e.id}, 'date', this.value)"></td>
+                <td><input type="text" class="edit-input" value="${e.name}" oninput="updateField(${e.id}, 'name', this.value)"></td>
+                <td><input type="number" class="edit-input" style="text-align:right; font-weight:bold" value="${e.amount}" oninput="updateField(${e.id}, 'amount', this.value)"></td>
+                <td style="text-align:right;"><button style="border:none;background:none;color:red;font-size:18px;cursor:pointer;" onclick="deleteEx(${e.id})">×</button></td>
             </tr>`;
         });
-        updateTotalsOnly(); renderCharts();
     }
+
+    function update() {
+        localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
+        updateListOnly();
+        updateTotalsOnly(); 
+        renderCharts();
+    }
+
+    // 批量同步至 Google Sheet 功能
+    function syncToCloud() {
+        if(SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbx7AIJFxzUJQDHZAyG4cwkDsEv4gvWA_lZTzeERe9bGMO977Jsd-Mpj6n7xn_7rGLHmmw/exec') {
+            alert('請先在 HTML 底部代碼中替換你的 SCRIPT_URL！');
+            return;
+        }
+
+        const unsynced = expenses.filter(e => !e.synced);
+        if (unsynced.length === 0) {
+            alert('沒有需要同步的新帳目！全部已經 ✅');
+            return;
+        }
+
+        const btn = document.getElementById('sync-btn');
+        btn.innerText = '⏳ 正在同步中...';
+        btn.disabled = true;
+
+        fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ expenses: unsynced })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === "success") {
+                // 將剛才提交的未同步項目標記為已同步
+                expenses.forEach(e => {
+                    if (!e.synced) e.synced = true;
+                });
+                localStorage.setItem('osakaNotesSyncEx', JSON.stringify(expenses));
+                updateListOnly();
+                alert(`成功將 ${data.syncedCount} 筆帳目同步至 Google Sheet！`);
+            } else {
+                alert("同步失敗：" + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error!', error);
+            alert("同步失敗，請檢查網絡連線。");
+        })
+        .finally(() => {
+            btn.innerText = '☁️ 一鍵同步未儲存帳目至 Google Sheet';
+            btn.disabled = false;
+        });
+    }
+
     function renderCharts() { drawPie('chart-cat', 'legend-cat', 'cat'); drawPie('chart-date', 'legend-date', 'date'); }
     function drawPie(svgId, legendId, key) {
         const svg = document.getElementById(svgId); const legend = document.getElementById(legendId);
