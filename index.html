@@ -362,7 +362,7 @@
 
 <script>
     // ⚠️ 在這裡替換你的 Google Apps Script Web App URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyPFgNtQwB2aeOpigRoEe3HwtR88iH7dEZLo0amj9ZOwen8jLRqnXubGZ5oWVkJqTMzMg/exec'; 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuJGO45Rz9dk3BK8W-Qf3_AG4OMRu_3yoCFbqjwyRuRpjFKHVx6LGHOyWS2mBIQpUhwA/exec'; 
 
     const container = document.getElementById('itinerary-container');
     const colors = ['#ffb7c5', '#6fbaf8', '#9d81ba', '#ffa726', '#81c784', '#ffd54f', '#a1887f'];
@@ -451,25 +451,22 @@
 
     // 下載功能 (Pull)
     function loadFromCloud() {
-        if(SCRIPT_URL === 'YOUR_WEB_APP_URL_HERE') return alert('請先替換 SCRIPT_URL！');
-        
         const btn = document.getElementById('load-btn');
         btn.innerText = '⏳ 下載中...';
-        btn.disabled = true;
-
-        fetch(SCRIPT_URL)
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === "success") {
-                expenses = data.expenses; // 用雲端資料覆蓋本地
-                update();
-                alert("✅ 成功從雲端下載所有帳目！");
-            } else alert("下載失敗：" + data.message);
-        })
-        .catch(error => alert("下載失敗，請檢查網絡連線。"))
-        .finally(() => { btn.innerText = '📥 2. 從雲端下載'; btn.disabled = false; });
+        
+        // 定義一個全局函數來接收資料
+        window.handleResponse = function(data) {
+            expenses = data.expenses;
+            update();
+            alert("✅ 成功從雲端下載！");
+            btn.innerText = '📥 2. 從雲端下載';
+        };
+    
+        // 動態加入 script 標籤 (繞過 CORS)
+        const script = document.createElement('script');
+        script.src = SCRIPT_URL + '?callback=handleResponse';
+        document.body.appendChild(script);
     }
-
     window.onload = () => { loadOrder(); update(); };
 </script>
 </body>
