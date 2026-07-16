@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 (雲端同步版)</title>
+    <title>大阪親子之旅 2026 v1.0</title>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
@@ -57,7 +57,7 @@
 
 <header>
     <h3 style="margin:0">☁️ 大阪 10 天親子 App</h3>
-    <small>原版行程 + 雲端同步版</small>
+    <small>原版行程 + 雲端同步 (地圖修復版)</small>
 </header>
 
 <div class="nav-tabs">
@@ -69,45 +69,43 @@
 </div>
 
 <div id="itinerary-container">
-    <!-- Day 1 -->
     <div class="day-block" id="block-1">
         <div class="day-header"><h3>📅 20/7 (一) 抵達日：梅田</h3><div class="order-btns"><button onclick="moveUp('block-1')">↑</button><button onclick="moveDown('block-1')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">13:45 關西機場抵達 (先去臨空城)</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport" target="_blank">13:45 關西機場抵達 (先去臨空城)</a>
                 <div class="transport">14:30-15:20 JR關空快速→JR大阪站 中央北口</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">15:30 阪急大阪龍仕柏 Check-in</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Hankyu+Respire+Osaka" target="_blank">15:30 阪急大阪龍仕柏 Check-in</a>
                 <div class="info">步行 3 分鐘</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">16:00-17:30 LINKS UMEDA 5F</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=LINKS+UMEDA" target="_blank">16:00-17:30 LINKS UMEDA 5F</a>
                 <div class="info">Mollyfantasy 旋轉木馬/幼兒區、jins</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">17:45-18:30 LINKS UMEDA 內用餐</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=LINKS+UMEDA" target="_blank">17:45-18:30 LINKS UMEDA 內用餐</a>
                 <div class="info">超市補給，19:00 步行回酒店休息。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 2 -->
     <div class="day-block" id="block-2">
         <div class="day-header" style="background:var(--accent)"><h3>📅 21/7 (二) 京都四景</h3><div class="order-btns"><button onclick="moveUp('block-2')">↑</button><button onclick="moveDown('block-2')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">08:00-09:00 伏見稻荷</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Fushimi+Inari+Taisha" target="_blank">08:00-09:00 伏見稻荷</a>
                 <div class="transport">07:30 JR大阪出發 → JR京都 → JR稻荷 (36分)</div>
                 <div class="info">千本鳥居</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">12:00-13:00 清水寺 & 午餐</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kiyomizu-dera" target="_blank">12:00-13:00 清水寺 & 午餐</a>
                 <div class="transport">伏見稻荷站 → 京阪電車 → 清水五条站 → 步行/巴士 → 清水寺</div>
                 <div class="info">鐵道便當午餐。13:30-16:00 清水坂散步。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">16:30-18:30 鐵道博物館</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kyoto+Railway+Museum" target="_blank">16:30-18:30 鐵道博物館</a>
                 <div class="transport">嵯峨野線 → 梅小路京都西</div>
                 <div class="quick-pay-btn" onclick="quickAdd('21/7', '鐵道博物館門票', 0, '玩')">➕ 記門票</div>
                 <div class="info">19:00 JR大阪回程酒店。</div>
@@ -115,158 +113,150 @@
         </div>
     </div>
 
-    <!-- Day 3 -->
     <div class="day-block" id="block-3">
         <div class="day-header"><h3>📅 22/7 (三) 神戶/難波</h3><div class="order-btns"><button onclick="moveUp('block-3')">↑</button><button onclick="moveDown('block-3')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">09:00-11:30 北野異人館街</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kitano+Ijinkan-gai" target="_blank">09:00-11:30 北野異人館街</a>
                 <div class="transport">07:30 大阪酒店出發 → JR 到三宮站 (約30-40分)</div>
                 <div class="info">參觀重點館舍 (3-4 館)。組合票約 ¥2000–3000。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">13:00-17:00 神戶臨海樂園 / umie</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kobe+Harborland+umie" target="_blank">13:00-17:00 神戶臨海樂園 / umie</a>
                 <div class="transport">12:30 JR 三宮 → 神戶站 → umie (步行 5 分)</div>
                 <div class="info">購物、摩天輪、MOSAIC 海邊散步、食甜品。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">15:15-16:30 Round1 千日前店</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Round+1+Stadium+Sennichimae" target="_blank">15:15-16:30 Round1 千日前店</a>
                 <div class="info">難波站 15-A 出口步行約 3-4 分。スポッチャ攀岩。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">16:45-17:30 Taito Station 難波店</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Taito+Station+Namba" target="_blank">16:45-17:30 Taito Station 難波店</a>
                 <div class="info">夾公仔。18:00 JR大阪回程酒店。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 4 -->
     <div class="day-block" id="block-4">
         <div class="day-header"><h3>📅 23/7 (四) 奈良親子日</h3><div class="order-btns"><button onclick="moveUp('block-4')">↑</button><button onclick="moveDown('block-4')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">08:00-08:40 奈良公園看鹿</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Nara+Park" target="_blank">08:00-08:40 奈良公園看鹿</a>
                 <div class="transport">07:30 JR大阪 → 近鐵難波 → 近鐵奈良</div>
                 <div class="info">鹿仙貝餵鹿。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">09:00-13:00 生駒山上遊樂園</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Ikomasanjou+Amusement+Park" target="_blank">09:00-13:00 生駒山上遊樂園</a>
                 <div class="transport">生駒纜車 → 遊樂園</div>
                 <div class="info">旋轉木馬/海盜船。18:00 近鐵 → JR大阪回酒店。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 5 -->
     <div class="day-block" id="block-5">
         <div class="day-header"><h3>📅 24/7 (五) 黑門市場→海遊館</h3><div class="order-btns"><button onclick="moveUp('block-5')">↑</button><button onclick="moveDown('block-5')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">08:30-10:30 黑門市場</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kuromon+Ichiba+Market" target="_blank">08:30-10:30 黑門市場</a>
                 <div class="transport">07:30 JR大阪 → 難波站</div>
                 <div class="info">早市海鮮試吃。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">11:15-14:30 海遊館</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Osaka+Aquarium+Kaiyukan" target="_blank">11:15-14:30 海遊館</a>
                 <div class="transport">地鐵 → 海遊館</div>
                 <div class="info">鯨鯊餵食+午餐。</div>
                 <div class="quick-pay-btn" onclick="quickAdd('24/7', '海遊館門票', 0, '玩')">➕ 記門票</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">15:15-17:30 心齋橋購物</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Shinsaibashi-suji+Shopping+Street" target="_blank">15:15-17:30 心齋橋購物</a>
                 <div class="transport">御堂筋線 → 心齋橋</div>
                 <div class="info">UNIQLO/藥妝掃貨。18:00 難波→JR大阪回酒店。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 6 -->
     <div class="day-block" id="block-6">
-        <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
+        <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭 (安全看煙花版)</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">08:45-11:30 大阪城公園</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle+Park" target="_blank">08:45-11:30 大阪城公園</a>
                 <div class="transport">07:30 JR大阪 → 大阪城公園站</div>
                 <div class="info">天守閣外圍拍照。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">13:30-17:30 天神祭陸渡御</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Tenmabashi+Station" target="_blank">13:30-17:00 天神祭陸渡御 (天滿橋)</a>
                 <div class="transport">天滿橋 → 天神祭</div>
-                <div class="info">神輿遊行。</div>
+                <div class="info" style="color:#d9534f; font-weight:bold;">⚠️ 17:30前必須提前撤退回梅田，避開高達百萬人的擁擠人潮！</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">18:00-21:00 櫻之宮公園花火</a>
-                <div class="info">船渡御+奉納花火。21:30 天滿橋→JR大阪回酒店。</div>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Hankyu+32+Bangai" target="_blank">18:30-20:30 阪急32番街 晚餐 & 睇煙花</a>
+                <div class="info">於 28 樓 とんかつ KYK 窗邊位晚餐，或在 27-31 樓東側免費高空長廊觀賞。安全、有冷氣，睇完步行幾分鐘即返酒店！</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 7 (星期日 - 紅色外框標示) -->
     <div class="day-block" id="block-7" style="border: 2px solid #ff4d4d; box-shadow: 0 4px 12px rgba(255,77,77,0.15);">
         <div class="day-header" style="background: #ff4d4d;"><h3>📅 26/7 (日) 天王寺親子日</h3><div class="order-btns"><button onclick="moveUp('block-7')">↑</button><button onclick="moveDown('block-7')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">09:30-12:00 天王寺動物園</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Tennoji+Zoo" target="_blank">09:30-12:00 天王寺動物園</a>
                 <div class="transport">09:00 JR大阪 → JR天王寺 東口</div>
                 <div class="info">企鵝/猴子。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">14:30-16:30 Kids Plaza Osaka</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kids+Plaza+Osaka" target="_blank">14:30-16:30 Kids Plaza Osaka</a>
                 <div class="transport">谷町線 → Kids Plaza</div>
                 <div class="info">科學館體驗。17:30 JR大阪回程酒店。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 8 -->
     <div class="day-block" id="block-8">
         <div class="day-header"><h3>📅 27/7 (一) 浜寺公園→臨空城</h3><div class="order-btns"><button onclick="moveUp('block-8')">↑</button><button onclick="moveDown('block-8')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">09:20-11:30 浜寺交通遊園</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Hamadera+Park+Traffic+Playground" target="_blank">09:20-11:30 浜寺交通遊園</a>
                 <div class="transport">08:30 JR大阪出發 → 09:10 羽衣站落車</div>
                 <div class="info">睇D51、阪堺電車、兒童火車/卡丁車。11:30附近午餐。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">13:00-16:00 臨空城 Premium Outlets</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Rinku+Premium+Outlets" target="_blank">13:00-16:00 臨空城 Premium Outlets</a>
                 <div class="transport">12:30 羽衣站 → 臨空城站 (2號出口)</div>
                 <div class="info">品牌掃貨。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">16:00-17:00 Seacle周邊</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Rinku+Pleasure+Town+Seacle" target="_blank">16:00-17:00 Seacle周邊</a>
                 <div class="info">西松屋、夾公仔、補BB貨。18:00 臨空城→JR大阪回酒店。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 9 -->
     <div class="day-block" id="block-9">
         <div class="day-header"><h3>📅 28/7 (二) 心齋橋道頓堀</h3><div class="order-btns"><button onclick="moveUp('block-9')">↑</button><button onclick="moveDown('block-9')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">10:00 心齋橋筋商店街</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Shinsaibashi-suji+Shopping+Street" target="_blank">10:00 心齋橋筋商店街</a>
                 <div class="transport">JR大阪 → 難波站</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">12:30-13:30 道頓堀</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Dotonbori" target="_blank">12:30-13:30 道頓堀</a>
                 <div class="info">章魚燒午餐。</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">15:30-17:30 夾公仔 (道頓堀/難波)</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=GiGO+Dotonbori" target="_blank">15:30-17:30 夾公仔 (道頓堀/難波)</a>
                 <div class="info">Taito Station、GiGO 道頓堀本店、Crane Yokocho。18:00 難波→JR大阪。</div>
             </div>
         </div>
     </div>
 
-    <!-- Day 10 -->
     <div class="day-block" id="block-10">
         <div class="day-header"><h3>📅 29/7 (三) 回程日</h3><div class="order-btns"><button onclick="moveUp('block-10')">↑</button><button onclick="moveDown('block-10')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">09:00-10:30 酒店整理行李退房</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Hotel+Hankyu+Respire+Osaka" target="_blank">09:00-10:30 酒店整理行李退房</a>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="javascript:void(0)">11:15-12:15 前往關西機場</a>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kansai+International+Airport" target="_blank">11:15-12:15 前往關西機場</a>
                 <div class="transport">JR關空快速 → 關西機場 Check-in</div>
                 <div class="info">14:15 關西機場起飛，結束愉快旅程。</div>
             </div>
@@ -274,7 +264,6 @@
     </div>
 </div>
 
-<!-- 備註區 -->
 <div id="notes-app" class="budget-section">
     <h4 style="margin:0 0 15px 0; color:var(--accent);">📝 旅程備註資料夾</h4>
     
@@ -293,25 +282,25 @@
     <div class="note-category" style="border-left-color: #e91e63;">
         <h5>🕹️ 玩樂與夾公仔景點</h5>
         <ul class="note-list">
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Round+1+Stadium+Sennichimae">Round 1 Stadium 千日前店</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Round+1+Stadium+Sennichimae" target="_blank">Round 1 Stadium 千日前店</a>
                 <span class="note-addr">📍 難波 1 丁目 3-1<br>🚇 Osaka Metro 難波站 15-A 出口步行 3-4 分鐘</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Taito+Station+Namba">Taito Station 難波店</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Taito+Station+Namba" target="_blank">Taito Station 難波店</a>
                 <span class="note-addr">📍 難波千日前 15-12<br>🚇 南海電鐵「難波站」北館東出口步行 2 分鐘 (顯眼紅色太空侵略者標誌)</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=GiGO+Dotonbori+Honten">GiGO 大阪道頓堀本店</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=GiGO+Dotonbori" target="_blank">GiGO 大阪道頓堀本店</a>
                 <span class="note-addr">📍 道頓堀 1-8-22 道頓座大樓 1F～3F<br>🚇 Osaka Metro「難波站」15-B 出口步行 6 分鐘 / 難波丸井5F</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=サープラ大阪道頓堀あそびタウン">サープラ大阪道頓堀あそびタウン</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=The+3rd+Planet+Dotonbori" target="_blank">サープラ大阪道頓堀あそびタウン</a>
                 <span class="note-addr">📍 道頓堀1-2-16</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=クレーン横丁道頓堀">Crane Yokocho クレーン横丁道頓堀</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Crane+Yokocho+Dotonbori" target="_blank">Crane Yokocho クレーン横丁道頓堀</a>
                 <span class="note-addr">📍 道頓堀 1 Chome−7−21 地下1階</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=LINKS+UMEDA+Mollyfantasy">Mollyfantasy (LINKS UMEDA)</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Mollyfantasy+LINKS+UMEDA" target="_blank">Mollyfantasy (LINKS UMEDA)</a>
                 <span class="note-addr">📍 大深町 1-1 ヨドバシ梅田タワー LINKS UMEDA 5 樓</span>
             </li>
-            <li><a class="location-link" href="https://maps.app.goo.gl/F7rQuWWLnLk9cqp17">結屋 新世界店 (天王寺)</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Musubiya+Shinsekai" target="_blank">結屋 新世界店 (天王寺)</a>
                 <span class="note-addr">📍 點擊連結查看地圖</span>
             </li>
         </ul>
@@ -320,19 +309,18 @@
     <div class="note-category" style="border-left-color: #4caf50;">
         <h5>🍴 美食餐廳</h5>
         <ul class="note-list">
-            <li><a class="location-link" href="https://maps.app.goo.gl/2tnuoPLjgRnuN4dE8">【函館 函太郎】北海道直送迴轉壽司</a></li>
-            <li><a class="location-link" href="https://maps.app.goo.gl/9xAxcubjP1uuTcRk8">OHANABATAKE</a></li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=AU+BON+UN+SIX+Grand+Front+Osaka">AU BON UN SIX (定食)</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kantaro+Sushi+Osaka" target="_blank">【函館 函太郎】北海道直送迴轉壽司</a></li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=OHANABATAKE+Osaka" target="_blank">OHANABATAKE</a></li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=AU+BON+UN+SIX+Osaka" target="_blank">AU BON UN SIX (定食)</a>
                 <span class="note-addr">📍 大深町4-20 グランフロント大阪 南館 7F</span>
             </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=七圍爐+Grand+Green+Osaka">七圍爐</a>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Shichirindo+Grand+Green+Osaka" target="_blank">七圍爐</a>
                 <span class="note-addr">📍 大深町5-54 Grand Green Osaka 南館 B1F<br>🚇 距離 JR 大阪站步行約 1 分鐘</span>
             </li>
         </ul>
     </div>
 </div>
 
-<!-- 記帳 App 區 -->
 <div id="budget-app" class="budget-section">
     <h4 style="margin:0 0 10px 0;">💰 離線記帳與雲端同步</h4>
     <div class="quick-area">
