@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 v1.0</title>
+    <title>大阪親子之旅 2026 v1.1</title>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
@@ -69,6 +69,7 @@
 </div>
 
 <div id="itinerary-container">
+    <!-- Day 1 -->
     <div class="day-block" id="block-1">
         <div class="day-header"><h3>📅 20/7 (一) 抵達日：梅田</h3><div class="order-btns"><button onclick="moveUp('block-1')">↑</button><button onclick="moveDown('block-1')">↓</button></div></div>
         <div class="card-content">
@@ -91,6 +92,7 @@
         </div>
     </div>
 
+    <!-- Day 2 -->
     <div class="day-block" id="block-2">
         <div class="day-header" style="background:var(--accent)"><h3>📅 21/7 (二) 京都四景</h3><div class="order-btns"><button onclick="moveUp('block-2')">↑</button><button onclick="moveDown('block-2')">↓</button></div></div>
         <div class="card-content">
@@ -113,6 +115,7 @@
         </div>
     </div>
 
+    <!-- Day 3 -->
     <div class="day-block" id="block-3">
         <div class="day-header"><h3>📅 22/7 (三) 神戶/難波</h3><div class="order-btns"><button onclick="moveUp('block-3')">↑</button><button onclick="moveDown('block-3')">↓</button></div></div>
         <div class="card-content">
@@ -137,6 +140,7 @@
         </div>
     </div>
 
+    <!-- Day 4 -->
     <div class="day-block" id="block-4">
         <div class="day-header"><h3>📅 23/7 (四) 奈良親子日</h3><div class="order-btns"><button onclick="moveUp('block-4')">↑</button><button onclick="moveDown('block-4')">↓</button></div></div>
         <div class="card-content">
@@ -153,6 +157,7 @@
         </div>
     </div>
 
+    <!-- Day 5 -->
     <div class="day-block" id="block-5">
         <div class="day-header"><h3>📅 24/7 (五) 黑門市場→海遊館</h3><div class="order-btns"><button onclick="moveUp('block-5')">↑</button><button onclick="moveDown('block-5')">↓</button></div></div>
         <div class="card-content">
@@ -175,6 +180,7 @@
         </div>
     </div>
 
+    <!-- Day 6 (天神祭本宮祭) -->
     <div class="day-block" id="block-6">
         <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭 (安全看煙花版)</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
         <div class="card-content">
@@ -195,6 +201,7 @@
         </div>
     </div>
 
+    <!-- Day 7 -->
     <div class="day-block" id="block-7" style="border: 2px solid #ff4d4d; box-shadow: 0 4px 12px rgba(255,77,77,0.15);">
         <div class="day-header" style="background: #ff4d4d;"><h3>📅 26/7 (日) 天王寺親子日</h3><div class="order-btns"><button onclick="moveUp('block-7')">↑</button><button onclick="moveDown('block-7')">↓</button></div></div>
         <div class="card-content">
@@ -211,26 +218,33 @@
         </div>
     </div>
 
+    <!-- Day 8 (全新更新版：浜寺交通遊園 & 臨空城無縫接軌) -->
     <div class="day-block" id="block-8">
         <div class="day-header"><h3>📅 27/7 (一) 浜寺公園→臨空城</h3><div class="order-btns"><button onclick="moveUp('block-8')">↑</button><button onclick="moveDown('block-8')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
                 <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Hamadera+Park+Traffic+Playground" target="_blank">09:20-11:30 浜寺交通遊園</a>
-                <div class="transport">08:30 JR大阪出發 → 09:10 羽衣站落車</div>
-                <div class="info">睇D51、阪堺電車、兒童火車/卡丁車。11:30附近午餐。</div>
+                <div class="transport">08:30 JR大阪(環狀線內回) → 新今宮轉「南海本線」 → 浜寺公園站 (約45分)</div>
+                <div class="info">💡 出站過馬路即達公園正門，推BB車最舒服！睇D51、阪堺電車、兒童火車/卡丁車。11:30附近午餐。</div>
             </div>
             <div class="loc-item">
                 <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Rinku+Premium+Outlets" target="_blank">13:00-16:00 臨空城 Premium Outlets</a>
-                <div class="transport">12:30 羽衣站 → 臨空城站 (2號出口)</div>
-                <div class="info">品牌掃貨。</div>
+                <div class="transport">12:30 公園南面「羽衣站」 → 南海空港急行 → 臨空城站 (約20分)</div>
+                <div class="info">💡 2號出口有天橋平路直駁商場，推住BB車暢通無阻。品牌掃貨！</div>
             </div>
             <div class="loc-item">
-                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Rinku+Pleasure+Town+Seacle" target="_blank">16:00-17:00 Seacle周邊</a>
-                <div class="info">西松屋、夾公仔、補BB貨。18:00 臨空城→JR大阪回酒店。</div>
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Rinku+Pleasure+Town+Seacle" target="_blank">16:00-17:00 Seacle周邊 (補給/夾公仔)</a>
+                <div class="info">Seacle 2樓西松屋買BB貨、1樓大型超市補給，順便夾公仔放電。</div>
+            </div>
+            <div class="loc-item">
+                <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Osaka+Station" target="_blank">18:00 回程：臨空城 ➔ JR 大阪站</a>
+                <div class="transport">18:00 拍ICOCA入JR閘口 → JR關空快速 → 直達JR大阪站 (約55分)</div>
+                <div class="info">💡 終極舒服一程過！見車廂滿寧願等下一班(約15分一班)，確保一家四口有連位坐低瞓覺。</div>
             </div>
         </div>
     </div>
 
+    <!-- Day 9 -->
     <div class="day-block" id="block-9">
         <div class="day-header"><h3>📅 28/7 (二) 心齋橋道頓堀</h3><div class="order-btns"><button onclick="moveUp('block-9')">↑</button><button onclick="moveDown('block-9')">↓</button></div></div>
         <div class="card-content">
@@ -249,6 +263,7 @@
         </div>
     </div>
 
+    <!-- Day 10 -->
     <div class="day-block" id="block-10">
         <div class="day-header"><h3>📅 29/7 (三) 回程日</h3><div class="order-btns"><button onclick="moveUp('block-10')">↑</button><button onclick="moveDown('block-10')">↓</button></div></div>
         <div class="card-content">
@@ -264,6 +279,7 @@
     </div>
 </div>
 
+<!-- 備註區 -->
 <div id="notes-app" class="budget-section">
     <h4 style="margin:0 0 15px 0; color:var(--accent);">📝 旅程備註資料夾</h4>
     
@@ -321,6 +337,7 @@
     </div>
 </div>
 
+<!-- 記帳 App 區 -->
 <div id="budget-app" class="budget-section">
     <h4 style="margin:0 0 10px 0;">💰 離線記帳與雲端同步</h4>
     <div class="quick-area">
