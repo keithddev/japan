@@ -3,31 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>大阪親子之旅 2026 v1.1</title>
+    <title>大阪親子之旅 & 天氣 v1.2</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <style>
         :root { --primary: #ffb7c5; --secondary: #6fbaf8; --accent: #9d81ba; --bg: #f8f9fa; --food: #ffa726; }
         body { font-family: -apple-system, system-ui, sans-serif; background: var(--bg); margin: 0; padding-bottom: 150px; color: #333; }
         header { background: var(--primary); color: white; text-align: center; padding: 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .nav-tabs { display: flex; overflow-x: auto; background: white; padding: 10px; gap: 8px; border-bottom: 1px solid #ddd; scroll-behavior: smooth; }
+        .nav-tabs { display: flex; overflow-x: auto; background: white; padding: 10px; gap: 8px; border-bottom: 1px solid #ddd; scroll-behavior: smooth; position: sticky; top: 54px; z-index: 999; }
+        .nav-tabs::-webkit-scrollbar { display: none; }
         .nav-tabs a { text-decoration: none; color: #555; background: #f0f0f0; padding: 8px 12px; border-radius: 15px; font-size: 13px; white-space: nowrap; font-weight: bold; }
         
         #itinerary-container { padding: 10px; }
-        .day-block { background: white; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow: hidden; border-left: 6px solid var(--secondary); }
+        .day-block { background: white; border-radius: 15px; margin-bottom: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); overflow: hidden; border-left: 6px solid var(--secondary); scroll-margin-top: 120px; }
         .day-header { background: var(--secondary); color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-        .order-btns button { background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px; border-radius: 5px; width: 30px; font-weight: bold; }
+        .day-header h3 { margin: 0; font-size: 1.17em; font-weight: bold; }
+        .order-btns button { background: rgba(255,255,255,0.2); border: none; color: white; padding: 5px; border-radius: 5px; width: 30px; font-weight: bold; cursor: pointer; }
         
         .card-content { padding: 15px; }
         .loc-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #f0f0f0; }
-        .location-link { font-size: 16px; font-weight: bold; color: #1a73e8; text-decoration: none; display: block; }
+        .location-link { font-size: 16px; font-weight: bold; color: #1a73e8; text-decoration: none; display: block; margin-bottom: 4px; }
         .location-link:after { content: " ↗"; font-size: 12px; }
         .transport { background: #eef7ff; font-size: 11px; padding: 6px; border-radius: 4px; margin: 5px 0; color: #444; border: 1px dashed var(--secondary); }
         .info { font-size: 12px; color: #666; line-height: 1.5; margin: 5px 0; }
         
         .quick-pay-btn { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; padding: 6px 10px; border-radius: 6px; font-size: 11px; margin-top: 5px; cursor: pointer; display: inline-block; font-weight: bold; }
 
-        .budget-section { background: white; margin: 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--accent); }
+        .budget-section { background: white; margin: 10px; padding: 15px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 5px solid var(--accent); scroll-margin-top: 120px; }
+        .budget-section h4 { margin: 0 0 15px 0; font-size: 1em; font-weight: bold; }
         .quick-area { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 15px; }
-        .q-btn { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: 8px 2px; border-radius: 8px; font-size: 10px; font-weight: bold; text-align: center; }
+        .q-btn { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: 8px 2px; border-radius: 8px; font-size: 10px; font-weight: bold; text-align: center; cursor: pointer; }
         .sync-btn { background: #e3f2fd; color: #1565c0; font-size: 12px; grid-column: span 4; padding: 10px; border: 1px solid #90caf9; border-radius: 8px; cursor: pointer; font-weight: bold; }
         
         .expense-table { width: 100%; font-size: 12px; border-collapse: collapse; }
@@ -37,30 +42,32 @@
         .edit-input:focus { border-color: var(--secondary); background: #f0f7ff; outline: none; }
         .status-icon { font-size: 14px; text-align: center; width: 25px; }
         
-        /* 備註區專用樣式 */
         .note-category { background: #f9f9f9; padding: 12px; border-radius: 10px; margin-bottom: 15px; border-left: 4px solid var(--secondary); }
-        .note-category h5 { margin: 0 0 10px 0; font-size: 14px; color: #333; }
+        .note-category h5 { margin: 0 0 10px 0; font-size: 14px; color: #333; font-weight: bold; }
         .note-list { list-style: none; padding: 0; margin: 0; font-size: 12px; color: #555; }
         .note-list li { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px dashed #ddd; }
         .note-addr { font-size: 11px; color: #888; display: block; margin-top: 3px; }
 
-        .charts-container { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
-        .chart-box { text-align: center; }
-        .pie-chart { width: 140px; height: 140px; transform: rotate(-90deg); border-radius: 50%; margin: 10px auto; }
-        .legend { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; font-size: 11px; margin-top: 10px; }
         .total-display { background: #fff3f3; padding: 15px; border-radius: 12px; margin-top: 15px; text-align: right; }
         .hkd { color: var(--primary); font-size: 22px; font-weight: bold; display: block; }
-        .sticky-footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-around; z-index: 1000; }
+        .sticky-footer { position: fixed; bottom: 0; width: 100%; background: white; border-top: 1px solid #ddd; padding: 10px 0; display: flex; justify-content: space-around; z-index: 1000; box-shadow: 0 -2px 5px rgba(0,0,0,0.05); }
+        .sticky-footer button { border: none; background: transparent; font-size: 14px; font-weight: bold; color: #555; cursor: pointer; padding: 5px 15px; }
+
+        /* Tailwind Reset Overrides for Itinerary */
+        ul.note-list { list-style-type: none; padding-left: 0; }
+        
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
 <header>
-    <h3 style="margin:0">☁️ 大阪 10 天親子 App</h3>
-    <small>原版行程 + 雲端同步 (地圖修復版)</small>
+    <h3 style="margin:0; font-size: 1.17em; font-weight: bold;">☁️ 大阪 10 天親子 App</h3>
+    <small>行程 v1.2</small>
 </header>
 
 <div class="nav-tabs">
+    <a href="#weather-app">🌤️ 天氣</a>
     <a href="#block-1">D1</a> <a href="#block-2">D2</a> <a href="#block-3">D3</a>
     <a href="#block-4">D4</a> <a href="#block-5">D5</a> <a href="#block-6">D6</a>
     <a href="#block-7" style="color:red; font-weight:bold;">D7(日)</a> 
@@ -68,6 +75,22 @@
     <a href="#notes-app">📝 備註</a> <a href="#budget-app">📊 帳本</a>
 </div>
 
+<!-- Weather App Container -->
+<div id="weather-app" class="day-block" style="margin: 10px; border-left-color: var(--secondary);">
+    <div class="day-header" style="background: var(--secondary);">
+        <h3 style="display: flex; align-items: center; gap: 8px;">🌤️ 實時天氣</h3>
+        <div class="order-btns">
+            <select id="region-select" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 4px 8px; border-radius: 6px; font-weight: bold; outline: none; cursor: pointer; font-size: 13px;">
+                <!-- Options injected by JS -->
+            </select>
+        </div>
+    </div>
+    <div class="card-content" id="main-content" style="min-height: 150px; position: relative;">
+        <!-- Content injected by JS -->
+    </div>
+</div>
+
+<!-- Itinerary Container -->
 <div id="itinerary-container">
     <!-- Day 1 -->
     <div class="day-block" id="block-1">
@@ -182,7 +205,7 @@
 
     <!-- Day 6 (天神祭本宮祭) -->
     <div class="day-block" id="block-6">
-        <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭 (安全看煙花版)</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
+        <div class="day-header" style="background:var(--food)"><h3>📅 25/7 (六) 天神祭本宮祭 (安全版)</h3><div class="order-btns"><button onclick="moveUp('block-6')">↑</button><button onclick="moveDown('block-6')">↓</button></div></div>
         <div class="card-content">
             <div class="loc-item">
                 <a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Osaka+Castle+Park" target="_blank">08:45-11:30 大阪城公園</a>
@@ -218,7 +241,7 @@
         </div>
     </div>
 
-    <!-- Day 8 (全新更新版：浜寺交通遊園 & 臨空城無縫接軌) -->
+    <!-- Day 8 -->
     <div class="day-block" id="block-8">
         <div class="day-header"><h3>📅 27/7 (一) 浜寺公園→臨空城</h3><div class="order-btns"><button onclick="moveUp('block-8')">↑</button><button onclick="moveDown('block-8')">↓</button></div></div>
         <div class="card-content">
@@ -281,7 +304,7 @@
 
 <!-- 備註區 -->
 <div id="notes-app" class="budget-section">
-    <h4 style="margin:0 0 15px 0; color:var(--accent);">📝 旅程備註資料夾</h4>
+    <h4>📝 旅程備註資料夾</h4>
     
     <div class="note-category" style="border-left-color: #ff9800;">
         <h5>🚇 交通費用總結 (2大+7歲)</h5>
@@ -302,22 +325,13 @@
                 <span class="note-addr">📍 難波 1 丁目 3-1<br>🚇 Osaka Metro 難波站 15-A 出口步行 3-4 分鐘</span>
             </li>
             <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Taito+Station+Namba" target="_blank">Taito Station 難波店</a>
-                <span class="note-addr">📍 難波千日前 15-12<br>🚇 南海電鐵「難波站」北館東出口步行 2 分鐘 (顯眼紅色太空侵略者標誌)</span>
+                <span class="note-addr">📍 難波千日前 15-12<br>🚇 南海電鐵「難波站」北館東出口步行 2 分鐘</span>
             </li>
             <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=GiGO+Dotonbori" target="_blank">GiGO 大阪道頓堀本店</a>
-                <span class="note-addr">📍 道頓堀 1-8-22 道頓座大樓 1F～3F<br>🚇 Osaka Metro「難波站」15-B 出口步行 6 分鐘 / 難波丸井5F</span>
-            </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=The+3rd+Planet+Dotonbori" target="_blank">サープラ大阪道頓堀あそびタウン</a>
-                <span class="note-addr">📍 道頓堀1-2-16</span>
+                <span class="note-addr">📍 道頓堀 1-8-22 道頓座大樓 1F～3F</span>
             </li>
             <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Crane+Yokocho+Dotonbori" target="_blank">Crane Yokocho クレーン横丁道頓堀</a>
                 <span class="note-addr">📍 道頓堀 1 Chome−7−21 地下1階</span>
-            </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Mollyfantasy+LINKS+UMEDA" target="_blank">Mollyfantasy (LINKS UMEDA)</a>
-                <span class="note-addr">📍 大深町 1-1 ヨドバシ梅田タワー LINKS UMEDA 5 樓</span>
-            </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Musubiya+Shinsekai" target="_blank">結屋 新世界店 (天王寺)</a>
-                <span class="note-addr">📍 點擊連結查看地圖</span>
             </li>
         </ul>
     </div>
@@ -325,13 +339,10 @@
     <div class="note-category" style="border-left-color: #4caf50;">
         <h5>🍴 美食餐廳</h5>
         <ul class="note-list">
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kantaro+Sushi+Osaka" target="_blank">【函館 函太郎】北海道直送迴轉壽司</a></li>
+            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Kantaro+Sushi+Osaka" target="_blank">函館 函太郎 北海道直送迴轉壽司</a></li>
             <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=OHANABATAKE+Osaka" target="_blank">OHANABATAKE</a></li>
             <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=AU+BON+UN+SIX+Osaka" target="_blank">AU BON UN SIX (定食)</a>
                 <span class="note-addr">📍 大深町4-20 グランフロント大阪 南館 7F</span>
-            </li>
-            <li><a class="location-link" href="https://www.google.com/maps/search/?api=1&query=Shichirindo+Grand+Green+Osaka" target="_blank">七圍爐</a>
-                <span class="note-addr">📍 大深町5-54 Grand Green Osaka 南館 B1F<br>🚇 距離 JR 大阪站步行約 1 分鐘</span>
             </li>
         </ul>
     </div>
@@ -339,14 +350,14 @@
 
 <!-- 記帳 App 區 -->
 <div id="budget-app" class="budget-section">
-    <h4 style="margin:0 0 10px 0;">💰 離線記帳與雲端同步</h4>
+    <h4>💰 離線記帳與雲端同步</h4>
     <div class="quick-area">
         <button class="q-btn" onclick="quickAdd(getToday(), 'ICOCA加值', 1000, '行')">🚇 ICOCA</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '夾公仔', 100, '玩')">🎮 夾公仔</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '家庭午餐', 0, '食')">🍴 午餐</button>
         <button class="q-btn" onclick="quickAdd(getToday(), '藥妝/購物', 0, '買')">🛍️ 購物</button>
-        <button class="sync-btn" id="sync-btn" style="grid-column: span 2;" onclick="syncToCloud()">☁️ 1. 備份上傳</button>
-        <button class="sync-btn" id="load-btn" style="grid-column: span 2; background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7;" onclick="loadFromCloud()">📥 2. 從雲端下載</button>
+        <button class="sync-btn" id="sync-btn" onclick="syncToCloud()">☁️ 1. 備份上傳</button>
+        <button class="sync-btn" id="load-btn" style="background: #e8f5e9; color: #2e7d32; border-color: #a5d6a7;" onclick="loadFromCloud()">📥 2. 從雲端下載</button>
     </div>
 
     <table class="expense-table">
@@ -365,12 +376,247 @@
     <button onclick="if(confirm('重設順序及清除手機數據？(不影響雲端)')){localStorage.clear(); location.reload();}">🔄 重設</button>
 </div>
 
+<!-- Combined Scripts -->
 <script>
-    // ⚠️ 在這裡替換你的 Google Apps Script Web App URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuJGO45Rz9dk3BK8W-Qf3_AG4OMRu_3yoCFbqjwyRuRpjFKHVx6LGHOyWS2mBIQpUhwA/exec'; 
+    // --- Weather App Logic ---
+    const REGIONS = [
+        { code: '130000', nameEn: 'Tokyo', nameJa: '東京', amedasCode: '44132' },
+        { code: '270000', nameEn: 'Osaka', nameJa: '大阪', amedasCode: '62078' },
+        { code: '016000', nameEn: 'Sapporo', nameJa: '札幌', amedasCode: '14163' },
+        { code: '400000', nameEn: 'Fukuoka', nameJa: '福岡', amedasCode: '82182' },
+        { code: '471000', nameEn: 'Naha', nameJa: '那覇', amedasCode: '91197' },
+        { code: '230000', nameEn: 'Nagoya', nameJa: '名古屋', amedasCode: '51106' },
+        { code: '040000', nameEn: 'Sendai', nameJa: '仙台', amedasCode: '34392' },
+        { code: '340000', nameEn: 'Hiroshima', nameJa: '広島', amedasCode: '67437' },
+    ];
 
+    let selectedRegion = REGIONS[1].code; // Default to Osaka
+
+    async function fetchJMAWeather(areaCode, amedasCode) {
+        const url = `https://www.jma.go.jp/bosai/forecast/data/forecast/${areaCode}.json`;
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+        
+        const data = await response.json();
+        const forecastMap = new Map();
+        const getDateKey = (iso) => iso.split('T')[0];
+
+        if (data[1]) {
+            const timeSeriesWeather = data[1].timeSeries[0];
+            const timeSeriesTemp = data[1].timeSeries[1];
+            
+            const timeDefines = timeSeriesWeather?.timeDefines || [];
+            const weathers = timeSeriesWeather?.areas[0]?.weathers || [];
+            const pops = timeSeriesWeather?.areas[0]?.pops || [];
+            const tempsMin = timeSeriesTemp?.areas[0]?.tempsMin || [];
+            const tempsMax = timeSeriesTemp?.areas[0]?.tempsMax || [];
+
+            timeDefines.forEach((dateString, i) => {
+                const key = getDateKey(dateString);
+                forecastMap.set(key, {
+                    date: dateString,
+                    description: (weathers[i] || '').replace(/　/g, ' '),
+                    pop: pops[i] || '',
+                    tempMin: tempsMin[i] || '',
+                    tempMax: tempsMax[i] || ''
+                });
+            });
+        }
+
+        if (data[0]) {
+            const timeSeriesWeather = data[0].timeSeries[0];
+            const timeSeriesPops = data[0].timeSeries[1];
+            const timeSeriesTemps = data[0].timeSeries[2];
+            
+            const timeDefines = timeSeriesWeather?.timeDefines || [];
+            const weathers = timeSeriesWeather?.areas[0]?.weathers || [];
+
+            timeDefines.forEach((dateString, i) => {
+                const key = getDateKey(dateString);
+                const existing = forecastMap.get(key);
+                const desc = (weathers[i] || '').replace(/　/g, ' ');
+                
+                if (existing) {
+                    existing.description = desc || existing.description;
+                } else {
+                    forecastMap.set(key, {
+                        date: dateString,
+                        description: desc,
+                        pop: '',
+                        tempMin: '',
+                        tempMax: ''
+                    });
+                }
+            });
+
+            if (timeSeriesPops) {
+                const popTimeDefines = timeSeriesPops.timeDefines || [];
+                const pops = timeSeriesPops.areas[0]?.pops || [];
+                
+                const dailyMaxPops = new Map();
+                popTimeDefines.forEach((time, i) => {
+                    const key = getDateKey(time);
+                    const popVal = parseInt(pops[i], 10);
+                    if (!isNaN(popVal)) {
+                        const currentMax = dailyMaxPops.get(key) || 0;
+                        dailyMaxPops.set(key, Math.max(currentMax, popVal));
+                    }
+                });
+
+                dailyMaxPops.forEach((maxPop, key) => {
+                    const existing = forecastMap.get(key);
+                    if (existing && (!existing.pop || existing.pop === '')) {
+                        existing.pop = maxPop.toString();
+                    }
+                });
+            }
+
+            if (timeSeriesTemps) {
+                const tempTimeDefines = timeSeriesTemps.timeDefines || [];
+                const temps = timeSeriesTemps.areas[0]?.temps || [];
+                tempTimeDefines.forEach((time, i) => {
+                    const key = getDateKey(time);
+                    const existing = forecastMap.get(key);
+                    if (existing) {
+                        const hour = new Date(time).getHours();
+                        if (hour === 0 || hour === 6) {
+                            existing.tempMin = existing.tempMin || temps[i];
+                        } else if (hour === 9 || hour === 12) {
+                            existing.tempMax = existing.tempMax || temps[i];
+                        } else if (!existing.tempMax) {
+                            existing.tempMax = temps[i];
+                        }
+                    }
+                });
+            }
+        }
+
+        const forecasts = Array.from(forecastMap.values()).sort((a, b) => a.date.localeCompare(b.date));
+        
+        let currentTemp = undefined;
+        let lastUpdateTime = data[0]?.reportDatetime;
+        try {
+            const timeRes = await fetch("https://www.jma.go.jp/bosai/amedas/data/latest_time.txt");
+            const timeStr = await timeRes.text();
+            const d = new Date(timeStr);
+            const pad = (n) => n.toString().padStart(2, '0');
+            const yyyymmddhhmmss = `${d.getFullYear()}${pad(d.getMonth()+1)}${pad(d.getDate())}${pad(d.getHours())}${pad(d.getMinutes())}00`;
+            
+            const amedasRes = await fetch(`https://www.jma.go.jp/bosai/amedas/data/map/${yyyymmddhhmmss}.json`);
+            const amedasData = await amedasRes.json();
+            
+            const stationData = amedasData[amedasCode];
+            if (stationData && stationData.temp && stationData.temp[0] !== undefined) {
+                currentTemp = stationData.temp[0];
+            }
+        } catch (e) {
+            console.error("Failed to fetch AMeDAS data:", e);
+        }
+
+        return { forecasts, currentTemp, lastUpdateTime };
+    }
+
+    function getWeatherIcon(description) {
+        if (description.includes('雪')) return 'snowflake';
+        if (description.includes('雷')) return 'cloud-lightning';
+        if (description.includes('雨')) return 'cloud-rain';
+        if (description.includes('晴')) return 'sun';
+        if (description.includes('曇')) return 'cloud';
+        return 'cloud';
+    }
+
+    function formatDay(isoString) {
+        const date = new Date(isoString);
+        return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(date).toUpperCase();
+    }
+
+    function formatDateShort(isoString) {
+        const date = new Date(isoString);
+        return new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' }).format(date);
+    }
+
+    async function renderApp() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <div style="display: flex; justify-content: center; padding: 20px; color: #888; font-size: 13px;">
+                <p>Fetching latest data...</p>
+            </div>
+        `;
+
+        try {
+            const regionInfo = REGIONS.find(r => r.code === selectedRegion);
+            const { forecasts, currentTemp, lastUpdateTime } = await fetchJMAWeather(regionInfo.code, regionInfo.amedasCode);
+            
+            let updateTimeString = '';
+            if (lastUpdateTime) {
+                const ud = new Date(lastUpdateTime);
+                updateTimeString = `Updated: ${ud.getMonth()+1}/${ud.getDate()} ${ud.getHours().toString().padStart(2, '0')}:${ud.getMinutes().toString().padStart(2, '0')}`;
+            }
+
+            let html = `
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                    <div>
+                        <div style="font-size: 2.5em; font-weight: 300; line-height: 1;">
+                            ${currentTemp !== undefined ? `${currentTemp}°` : '--°'}
+                            <span style="font-size: 0.5em; color: #888;">${forecasts[0] ? forecasts[0].description.split('　')[0] : 'Unknown'}</span>
+                        </div>
+                        <div style="font-size: 0.85em; color: #666; margin-top: 5px;">
+                            ${forecasts[0]?.tempMax ? `H: ${forecasts[0].tempMax}°` : ''} 
+                            ${forecasts[0]?.tempMin ? `L: ${forecasts[0].tempMin}°` : ''}
+                            ${forecasts[0]?.pop ? `| Rain: ${forecasts[0].pop}%` : ''}
+                        </div>
+                    </div>
+                    ${updateTimeString ? `<div style="font-size: 0.7em; color: #aaa; text-align: right; align-self: flex-start;">${updateTimeString}</div>` : ''}
+                </div>
+
+                <div style="border-top: 1px dashed #ddd; margin-top: 15px; padding-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <span style="font-size: 0.75em; font-weight: bold; color: #888; text-transform: uppercase;">Forecast</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;" id="forecast-grid">
+                        ${forecasts.map((data, index) => {
+                            const isFirst = index === 0;
+                            return `
+                                <div class="${isFirst ? '' : 'extended-forecast-item hidden'}" style="background: ${isFirst ? '#eef7ff' : '#f9f9f9'}; border: 1px solid ${isFirst ? 'var(--secondary)' : '#eee'}; border-radius: 8px; padding: 10px;">
+                                    <div style="font-size: 0.7em; font-weight: bold; color: ${isFirst ? 'var(--secondary)' : '#888'};">${formatDay(data.date)}</div>
+                                    <div style="font-size: 0.8em; font-weight: bold; margin-bottom: 5px;">${formatDateShort(data.date)}</div>
+                                    <div style="font-size: 0.7em; color: #666; margin-bottom: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                        ${data.description.split('　')[0]}
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                                        <div style="font-size: 0.9em; font-weight: bold;">
+                                            ${data.tempMax || '--'}° <span style="font-size: 0.7em; font-weight: normal; color: #999;">${data.tempMin ? data.tempMin + '°' : ''}</span>
+                                        </div>
+                                        ${(data.pop && data.pop !== '0') ? `<div style="font-size: 0.7em; color: var(--secondary); font-weight: bold;">${data.pop}%</div>` : ''}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <button onclick="
+                            const items = document.querySelectorAll('.extended-forecast-item');
+                            items.forEach(el => el.classList.toggle('hidden'));
+                            this.innerText = items[0] && items[0].classList.contains('hidden') ? 'Show 6-Day' : 'Hide Forecast';
+                        " style="background: #f0f0f0; border: none; padding: 5px 15px; border-radius: 15px; font-size: 11px; font-weight: bold; color: #555; cursor: pointer;">
+                            Show 6-Day
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            mainContent.innerHTML = html;
+            
+        } catch (err) {
+            mainContent.innerHTML = `
+                <div style="color: red; font-size: 12px; padding: 10px;">Failed to load forecast: ${err.message}</div>
+            `;
+        }
+    }
+
+    // --- Itinerary Logic ---
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwuJGO45Rz9dk3BK8W-Qf3_AG4OMRu_3yoCFbqjwyRuRpjFKHVx6LGHOyWS2mBIQpUhwA/exec'; 
     const container = document.getElementById('itinerary-container');
-    const colors = ['#ffb7c5', '#6fbaf8', '#9d81ba', '#ffa726', '#81c784', '#ffd54f', '#a1887f'];
 
     function saveOrder() { localStorage.setItem('osakaNotesSyncApp', JSON.stringify(Array.from(container.children).map(c => c.id))); }
     function loadOrder() {
@@ -459,7 +705,6 @@
         const btn = document.getElementById('load-btn');
         btn.innerText = '⏳ 下載中...';
         
-        // 定義一個全局函數來接收資料
         window.handleResponse = function(data) {
             expenses = data.expenses;
             update();
@@ -467,12 +712,37 @@
             btn.innerText = '📥 2. 從雲端下載';
         };
     
-        // 動態加入 script 標籤 (繞過 CORS)
         const script = document.createElement('script');
         script.src = SCRIPT_URL + '?callback=handleResponse';
         document.body.appendChild(script);
     }
-    window.onload = () => { loadOrder(); update(); };
+
+    // Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+        // Init Weather
+        const select = document.getElementById('region-select');
+        REGIONS.forEach(r => {
+            const option = document.createElement('option');
+            option.value = r.code;
+            option.textContent = `${r.nameEn} (${r.nameJa})`;
+            option.className = 'text-black';
+            select.appendChild(option);
+        });
+        
+        // Select Osaka by default instead of Tokyo based on itinerary 
+        select.value = REGIONS[1].code;
+        
+        select.addEventListener('change', (e) => {
+            selectedRegion = e.target.value;
+            renderApp();
+        });
+        
+        renderApp();
+        
+        // Init Itinerary
+        loadOrder(); 
+        update();
+    });
 </script>
 </body>
 </html>
